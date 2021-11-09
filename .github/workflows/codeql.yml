@@ -75,8 +75,8 @@ jobs:
         languages: ${{ matrix.language }}
         config-file: ./.github/codeql-config.yml
 
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v1
+    #- name: Autobuild
+    #  uses: github/codeql-action/autobuild@v1
 
     # ℹ️ Command-line programs to run using the OS shell.
     # 📚 https://git.io/JvXDl
@@ -89,6 +89,11 @@ jobs:
     #- run: |
     #    nuget restore name.sln
     #    msbuild name.sln /p:UseSharedCompilation=false
+    
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
